@@ -10,4 +10,4 @@
 <h1></h1>
 
 <h4 align="center">ForeverNote provides users with the platform with user-friendly ways to create notes! 
-<br>ForeverNote also provides users with the option to create notebooks that can be used to group smiliar notes.</br></h4>
+<br>ForeverNote also provides users with the option to create notebooks that can be used to group notes together.</br></h4>
