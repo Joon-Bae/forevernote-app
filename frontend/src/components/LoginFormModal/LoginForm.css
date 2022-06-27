@@ -12,3 +12,45 @@ button {
     justify-content: center;
     margin: 20px;
 }
+
+
+#demo-login-modal{
+    display: flex;
+    justify-content: center;
+
+}
+
+.demo-login-button{
+    cursor: pointer;
+    font-style: italic;
+    background-color: #fff;
+    border: 1px solid #d5d9d9;
+    box-shadow: rgb(213 217 217 / 50%) 0 2px 5px 0;
+    box-sizing: border-box;
+    color: #0f1111;
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 0 10px 0 11px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+.hamburger-menu{
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+
+.main-login-button{
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.main-login-button:hover{
+    box-shadow: 1px 1px 1px 1px black;
+}
+
