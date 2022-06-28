@@ -38,7 +38,6 @@ const deleteYourNote = (noteId) => {
 //THUNKS
 export const getAllNotes = () => async(dispatch) => {
     const result = await csrfFetch('/api/note');
-
     if (result.ok) {
         const notes = await result.json();
         dispatch(getNotes(notes))
@@ -96,7 +95,8 @@ const noteReducer = (state = {}, action) => {
             if(!state[action.note.id]) {
                 newState = { ...state, [action.note.id]: action.note}
                 return newState
-            }
+            };
+            break;
         case EDIT_NOTE:
             newState = {
                 ...state,
@@ -104,7 +104,7 @@ const noteReducer = (state = {}, action) => {
                     ...state[action.note.id],
                     ...action.note
                 }
-            }
+            };
             return newState;
         case DELETE_NOTE:
             newState = { ...state };

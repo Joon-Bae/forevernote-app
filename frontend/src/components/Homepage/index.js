@@ -7,7 +7,7 @@ import { NavLink, useHistory } from "react-router-dom";
 export const Homepage = () => {
     const dispatch = useDispatch();
     const userNotes = useSelector((state) => Object.values(state.note))
-    const history = useHistory();
+    console.log(userNotes)
 
     useEffect(() => {
         dispatch(getAllNotes());
@@ -16,7 +16,7 @@ export const Homepage = () => {
 return(
     <>
     <div className='add-note'>
-        <button onClick = {() => history.push('/add-this-note')}>
+        <button>
             Add a Note
         </button>
     </div>
