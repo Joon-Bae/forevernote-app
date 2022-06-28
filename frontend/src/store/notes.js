@@ -1,4 +1,3 @@
-import note from '../../../backend/db/models/note';
 import { csrfFetch } from './csrf'
 
 const GET_NOTES = 'notes/getNotes';
@@ -54,7 +53,7 @@ export const addNote = (note) => async(dispatch) => {
     })
 
     if (result.ok) {
-        const data = await res.json();
+        const data = await result.json();
         dispatch(addYourNote(data))
         return data;
     }
@@ -68,7 +67,7 @@ export const editNote = (data, id) => async(dispatch) => {
     })
 
     if (result.ok) {
-        const data = await res.json();
+        const data = await result.json();
         dispatch(editYourNote(data))
         return data;
     }

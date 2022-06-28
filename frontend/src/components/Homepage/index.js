@@ -12,7 +12,6 @@ export const Homepage = () => {
     useEffect(() => {
         dispatch(getAllNotes());
     }, [dispatch])
-}
 
 return(
     <>
@@ -35,3 +34,4 @@ return(
     </div>
     </>
 )
+}

@@ -1,6 +1,6 @@
 const express = require('express')
 const asyncHandler = require('express-async-handler')
-const { Note, User } = require('../db/models')
+const { Note, User } = require('../../db/models')
 const router = express.Router();
 
 router.get('/', async (req,res) => {
