@@ -1,6 +1,37 @@
-import "./home.css";
+import "./homepage.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getBusinesses } from "../../store/business";
+import { getAllNotes } from "../../store/notes";
 import { useEffect } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 
+export const Homepage = () => {
+    const dispatch = useDispatch();
+    const userNotes = useSelector((state) => Object.values(state.note))
+    const history = useHistory();
+
+    useEffect(() => {
+        dispatch(getAllNotes());
+    }, [dispatch])
+}
+
+return(
+    <>
+    <div className='add-note'>
+        <button onClick = {() => history.push('/add-this-note')}>
+            Add a Note
+        </button>
+    </div>
+    <div className='user-notes'>
+    {userNotes.map((note) => {
+        <NavLink key={`${note.id}`} to={`/note/${note.id}`}>
+            <div>
+                {note.title}
+            </div>
+            <div>
+                {note.content}
+            </div>
+        </NavLink>
+    })}
+    </div>
+    </>
+)
