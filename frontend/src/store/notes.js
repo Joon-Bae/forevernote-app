@@ -17,21 +17,21 @@ const getNotes = (notes) => {
 const addYourNote = (note) => {
     return {
         type: ADD_NOTE,
-        note,
+        payload: note,
     };
 }
 
 const editYourNote = (noteId) => {
     return {
         type:EDIT_NOTE,
-        noteId
+        payload: noteId
     };
 }
 
 const deleteYourNote = (noteId) => {
     return {
         type: DELETE_NOTE,
-        noteId
+        payload: noteId
     }
 }
 
@@ -49,7 +49,7 @@ export const addNote = (note) => async(dispatch) => {
     const result = await csrfFetch('/api/note', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify(result)
+        body: JSON.stringify(note)
     })
 
     if (result.ok) {
@@ -74,12 +74,14 @@ export const editNote = (data, id) => async(dispatch) => {
 }
 
 export const deleteNote = (id) => async(dispatch) => {
-    const result = csrfFetch(`/api/note/${id}`, {
+    // console.log("HELLLLO")
+    const result = await csrfFetch(`/api/note/${id}`, {
         method: 'DELETE'
     })
-
+    // console.log(result)
     if (result.ok) {
         const noteId = await result.json();
+        console.log(noteId)
         dispatch(deleteYourNote(noteId))
     }
 }
@@ -99,11 +101,14 @@ const noteReducer = (state = initialState, action) => {
             return newState;
 
         case ADD_NOTE:
-            if(!state[action.note.id]) {
-                newState = { ...state, [action.note.id]: action.note}
-                return newState
-            };
-            break;
+            newState = {...state}
+            const newNoteId = action.payload.id
+            newState[newNoteId] = action.payload
+            // if(!state[action.note.id]) {
+            //     newState = { ...state, [action.note.id]: action.note}
+            //     return newState
+            // };
+            return newState;
 
         case EDIT_NOTE:
             // find the id of the new incoming note
@@ -125,7 +130,8 @@ const noteReducer = (state = initialState, action) => {
 
         case DELETE_NOTE:
             newState = { ...state };
-            delete newState[action.noteId.id];
+            const deletedId = action.payload.id
+            delete newState[`${deletedId}`];
             return newState;
 
         default:
