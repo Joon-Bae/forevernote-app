@@ -3,9 +3,9 @@ const asyncHandler = require('express-async-handler')
 const { Note, User } = require('../../db/models')
 const router = express.Router();
 
-router.get('/test/:id', asyncHandler(async(req,res)=> {
-    console.log('testtttttttttt')
-}))
+// router.get('/test/:id', asyncHandler(async(req,res)=> {
+//     console.log('testtttttttttt')
+// }))
 
 router.get('/:id', asyncHandler(async (req,res) => {
     const userId = req.params.id
@@ -23,12 +23,23 @@ router.get('/:id', asyncHandler(async (req,res) => {
 
 router.post('/',
 asyncHandler(async (req,res) => {
-    const note = ({
-        userId,
-        notebookId,
-        title,
-        content,
-    } = await Note.create(req.body));
+    console.log(req.body, "*****************")
+    const { userId, notebookId, title, content } = req.body;
+    const note = await Note.create({
+        userId: userId,
+        notebookId: notebookId,
+        title: title,
+        content: content,
+        createdAt: new Date(),
+        updatedAt: new Date()
+    })
+    // const note = ({
+    //     userId,
+    //     notebookId,
+    //     title,
+    //     content,
+    // } = await Note.create(req.body));
+    // return res.send()
     return res.json(note)
 })
 );
@@ -64,11 +75,9 @@ asyncHandler(async(req, res) => {
 const id = req.params.id;
 const note = await Note.findByPk(id)
 
-await Note.destroy({
-    where: { noteId: note.id}
-})
+await note.destroy();
 
-return res.json(id)
+return res.json(note)
 })
 );
 

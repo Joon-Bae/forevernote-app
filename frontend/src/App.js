@@ -5,6 +5,8 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import { Homepage } from './components/Homepage'
+import  NewNoteForm  from './components/NewNoteForm'
+import Note from "./components/Note";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +28,12 @@ function App() {
       <Switch>
         <Route exact path='/'>
           <Homepage />
+        </Route>
+        <Route exact path='/notebook/:notebookId/note/new'>
+          <NewNoteForm />
+      </Route>
+      <Route exact path='/note/:id'>
+        <Note />
       </Route>
       </Switch>
     </>
