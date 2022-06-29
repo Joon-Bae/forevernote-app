@@ -7,16 +7,19 @@ import { NavLink, useHistory } from "react-router-dom";
 export const Homepage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const userId = useSelector((state) => state?.session?.user?.id)
+    const sessionUser = useSelector(state=> state.session.user)
+    // const userId = useSelector((state) => state.session.user.id)
     const userNotes = useSelector((state) => Object.values(state.note))
     const [isLoaded, setIsLoaded] = useState(false)
 
+    // console.log(userId, "wtf is this piece of ...")
     useEffect(() => {
-        if (userId) {
+        if (sessionUser) {
+            const userId = sessionUser.id
             dispatch(getAllNotes(userId))
                 .then(() => setIsLoaded(true))
         }
-    }, [dispatch, userId])
+    }, [dispatch, isLoaded, sessionUser])
 
     // useEffect(() => {
     //     console.log("effect notes:: ", note)
@@ -29,8 +32,10 @@ export const Homepage = () => {
         history.push(`/notebook/1/note/new`)
     }
 
-    if (!userId) {
+    if (!sessionUser) {
         return null;
+    } else if( !isLoaded){
+        return <h1>Loading...</h1>
     } else {
         return (
             <>
