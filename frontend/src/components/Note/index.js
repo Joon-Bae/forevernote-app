@@ -11,7 +11,6 @@ const Note = () => {
 // use the params to get the id of the note
 // create a dispatch that grabs the findByPK of this particular note
 // useSelector to grab the note and then plug that note in for lines 11 and 12
-
 const deleteUserNote = (e) => {
     e.preventDefault();
     e.stopPropagation();

@@ -3,27 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllNotes } from "../../store/notes";
 import { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
+import { LeftNavigation } from "../LeftNavigationBar/leftindex";
+import { RightNoteComponent } from "../RightNoteComponent/rightindex";
 
 export const Homepage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const sessionUser = useSelector(state=> state.session.user)
+    const userId = useSelector(state=> state?.session?.user?.id)
     // const userId = useSelector((state) => state.session.user.id)
     const userNotes = useSelector((state) => Object.values(state.note))
     const [isLoaded, setIsLoaded] = useState(false)
 
-    // console.log(userId, "wtf is this piece of ...")
     useEffect(() => {
-        if (sessionUser) {
-            const userId = sessionUser.id
+        if (userId) {
             dispatch(getAllNotes(userId))
-                .then(() => setIsLoaded(true))
+            setIsLoaded(true)
         }
-    }, [dispatch, isLoaded, sessionUser])
-
-    // useEffect(() => {
-    //     console.log("effect notes:: ", note)
-    // }, [note])
+    }, [dispatch, isLoaded, userId])
 
     const sendToNewForm = (e) => {
         e.preventDefault();
@@ -32,10 +28,10 @@ export const Homepage = () => {
         history.push(`/notebook/1/note/new`)
     }
 
-    if (!sessionUser) {
+    if (!userId) {
         return null;
-    } else if( !isLoaded){
-        return <h1>Loading...</h1>
+    // } else if (!isLoaded){
+    //         return <h1>Loading...</h1>
     } else {
         return (
             <>
@@ -45,7 +41,7 @@ export const Homepage = () => {
                     </button>
                 </div>
                 <div className='user-notes'>
-                    {userNotes.length === 0 ? <h1>No Notes Currently</h1> : userNotes?.map((note) => {
+                    {userNotes?.length > 0 ? userNotes?.map((note) => {
                         return (
                             <NavLink key={`${note?.id}`} to={`/note/${note?.id}`}>
                                 <div>
@@ -57,7 +53,7 @@ export const Homepage = () => {
                             </NavLink>
                         )
 
-                    })}
+                    }): <h1>No Notes Currently</h1> }
                 </div>
             </>
         )
