@@ -10,7 +10,7 @@ const DELETE_NOTE = 'notes/deleteNote';
 const getNotes = (notes) => {
     return {
         type: GET_NOTES,
-        notes
+        payload: notes
     };
 };
 
@@ -36,11 +36,12 @@ const deleteYourNote = (noteId) => {
 }
 
 //THUNKS
-export const getAllNotes = () => async(dispatch) => {
-    const result = await csrfFetch('/api/note');
+export const getAllNotes = (id) => async(dispatch) => {
+    const result = await csrfFetch(`/api/note/${id}`);
     if (result.ok) {
-        const notes = await result.json();
-        dispatch(getNotes(notes))
+        const allNotes = await result.json();
+        dispatch(getNotes(allNotes))
+        return allNotes
     }
 }
 
@@ -83,21 +84,36 @@ export const deleteNote = (id) => async(dispatch) => {
     }
 }
 
-const noteReducer = (state = {}, action) => {
+const initialState = {}
+const noteReducer = (state = initialState, action) => {
     let newState = {};
     switch (action.type) {
         case GET_NOTES:
-            action.notes.forEach((note) => {
-                newState[note.id] = note;
-            });
+            newState = {...state}
+            const notes = action.payload
+            if(notes.length > 0){
+                notes.forEach((note) => {
+                    newState[note.id] = note;
+                });
+            }
             return newState;
+
         case ADD_NOTE:
             if(!state[action.note.id]) {
                 newState = { ...state, [action.note.id]: action.note}
                 return newState
             };
             break;
+
         case EDIT_NOTE:
+            // find the id of the new incoming note
+            //index into the state to find that id: newState.id
+            // point that to be the new item:
+            // newState.id = action.payload
+// action.payload = {id: 1, note: 'bye'}
+// newState = {1: {id: 1, note: 'bye'}}
+
+
             newState = {
                 ...state,
                 [action.note.id]: {
@@ -106,10 +122,12 @@ const noteReducer = (state = {}, action) => {
                 }
             };
             return newState;
+
         case DELETE_NOTE:
             newState = { ...state };
             delete newState[action.noteId.id];
             return newState;
+
         default:
             return state;
     }

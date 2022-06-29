@@ -1,37 +1,49 @@
 import "./homepage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllNotes } from "../../store/notes";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 
 export const Homepage = () => {
     const dispatch = useDispatch();
+    const userId = useSelector((state) => state?.session?.user?.id)
     const userNotes = useSelector((state) => Object.values(state.note))
-    console.log(userNotes)
+
+    const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {
-        dispatch(getAllNotes());
-    }, [dispatch])
+        if (userId) {
+            dispatch(getAllNotes(userId))
+            .then(()=> setIsLoaded(true))
+        }
+    }, [dispatch, userId])
 
-return(
-    <>
-    <div className='add-note'>
-        <button>
-            Add a Note
-        </button>
-    </div>
-    <div className='user-notes'>
-    {userNotes.map((note) => {
-        <NavLink key={`${note.id}`} to={`/note/${note.id}`}>
-            <div>
-                {note.title}
-            </div>
-            <div>
-                {note.content}
-            </div>
-        </NavLink>
-    })}
-    </div>
-    </>
-)
+    // useEffect(() => {
+    //     console.log("effect notes:: ", note)
+    // }, [note])
+    if (!userId) {
+        return null;
+    } else {
+        return (
+            <>
+                <div className='add-note'>
+                    <button>
+                        Add a Note
+                    </button>
+                </div>
+                <div className='user-notes'>
+                    {userNotes.length === 0? <h1>No Notes Currently</h1>:userNotes.map((note) => {
+                        <NavLink key={`${note.id}`} to={`/note/${note.id}`}>
+                            <div>
+                                {note.title}
+                            </div>
+                            <div>
+                                {note.content}
+                            </div>
+                        </NavLink>
+                    })}
+                </div>
+            </>
+        )
+    }
 }
