@@ -23,7 +23,7 @@ router.get('/:id', asyncHandler(async (req,res) => {
 
 router.post('/',
 asyncHandler(async (req,res) => {
-    console.log(req.body, "*****************")
+    // console.log(req.body, "*****************")
     const { userId, notebookId, title, content } = req.body;
     const note = await Note.create({
         userId: userId,
