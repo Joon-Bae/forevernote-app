@@ -63,7 +63,7 @@ export const getSingleNote = (id) => async(dispatch) => {
 }
 
 export const addNote = (note) => async(dispatch) => {
-    const result = await csrfFetch('/api/note', {
+    const result = await csrfFetch('/api/note/new', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(note)

@@ -26,7 +26,7 @@ router.get('/:id', asyncHandler(async (req,res) => {
     return res.json(notes);
 }));
 
-router.post('/',
+router.post('/new',
 asyncHandler(async (req,res) => {
     // console.log(req.body, "*****************")
     const { userId, notebookId, title, content } = req.body;

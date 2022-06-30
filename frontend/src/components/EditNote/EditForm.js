@@ -42,7 +42,8 @@ function EditForm() {
 
     }, [title, content]);
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         const formValues = {
             userId, //2
             id, //55
