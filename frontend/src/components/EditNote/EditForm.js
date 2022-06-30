@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { addNote } from '../../store/notes';
+import { editNote } from '../../store/notes';
 
 function EditForm() {
     const dispatch = useDispatch();
-    const { notebookId } = useParams();
+    const { id } = useParams();
+    // console.log("**************", useParams())
     const userId = useSelector((state) => state?.session?.user?.id)
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+    const note = useSelector((state) => state.note[id])
+    console.log(note)
+    const [title, setTitle] = useState(note.title);
+    const [content, setContent] = useState(note.content);
     const [errors, setErrors] = useState([]);
     const history = useHistory();
+
+
     useEffect(() => {
         const validationErrors = [];
         if (!title.length) validationErrors.push("Title is required");
@@ -22,15 +27,23 @@ function EditForm() {
 
     const handleSubmit = () => {
         const formValues = {
-            userId,
-            notebookId,
-            title,
-            content
+            userId, //2
+            id, //55
+            title, //joon
+            content //2
         }
-        dispatch((formValues))
-        console.log(formValues)
+        // dispatch(editNote(formValues))
+        // console.log(formValues)
+        // history.push('/')
+
+        // function submitEdit(e){
+        //     e.preventDefault();
+
+        dispatch(editNote(formValues))
         history.push('/')
+
     }
+
 
     return (
         <form
@@ -67,10 +80,10 @@ function EditForm() {
                 type="submit"
                 disabled={errors.length > 0}
             >
-                Create Note
+                Edit Note
             </button>
         </form>
     );
 }
 
-export default NewNoteForm;
+export default EditForm;

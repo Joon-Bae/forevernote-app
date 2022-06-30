@@ -6,6 +6,11 @@ const router = express.Router();
 // router.get('/test/:id', asyncHandler(async(req,res)=> {
 //     console.log('testtttttttttt')
 // }))
+router.get('/one/:id', asyncHandler(async (req, res) => {
+    const id = req.params.id
+    const note = await Note.findByPk(id)
+    return res.json(note)
+}))
 
 router.get('/:id', asyncHandler(async (req,res) => {
     const userId = req.params.id
@@ -45,28 +50,31 @@ asyncHandler(async (req,res) => {
 );
 
 router.put(
-'/:id',
+'/:id/edit',
 asyncHandler(async (req, res) => {
     const {
-        id,
         userId,
-        notebookId,
+        id,
         title,
         content
     } = req.body
 
-    await Note.update(
+    // console.log(note, "hello joon")
+
+    const editedNote = await Note.update(
         {
             userId,
-            notebookId,
+            id,
             title,
             content
         },
         {
             where: { id },
         }
-    )
-    return res.json(id);
+        )
+    const note = await Note.findByPk(id)
+    return res.json(note);
+    // return res.send(':)')
 })
 );
 

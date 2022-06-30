@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation";
 import { Homepage } from './components/Homepage';
 import { getAllNotes } from "./store/notes";
 import  NewNoteForm  from './components/NewNoteForm'
+import EditForm from "./components/EditNote/EditForm";
 import Note from "./components/Note";
 
 function App() {
@@ -45,6 +46,9 @@ function App() {
       </Route>
       <Route exact path='/note/:id'>
         <Note />
+      </Route>
+      <Route exact path='/note/:id/edit'>
+        <EditForm />
       </Route>
       </Switch>
     </>

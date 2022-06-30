@@ -21,10 +21,10 @@ const addYourNote = (note) => {
     };
 }
 
-const editYourNote = (noteId) => {
+const editYourNote = (note) => {
     return {
         type:EDIT_NOTE,
-        payload: noteId
+        payload: note
     };
 }
 
@@ -59,17 +59,20 @@ export const addNote = (note) => async(dispatch) => {
     }
 }
 
-export const editNote = (data, id) => async(dispatch) => {
-    const result = await csrfFetch(`/api/note/${id}`, {
+export const editNote = (formValues) => async(dispatch) => {
+    const { id } = formValues
+    console.log(id, "*********************)_")
+    const result = await csrfFetch(`/api/note/${id}/edit`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify(result)
+        body: JSON.stringify(formValues)
     })
-
+    console.log(result, "))))))))))))))))))))))))))")
     if (result.ok) {
-        const data = await result.json();
-        dispatch(editYourNote(data))
-        return data;
+        const note = await result.json();
+        console.log(note, "---------------:)")
+        dispatch(editYourNote(note))
+        return note;
     }
 }
 
@@ -118,14 +121,9 @@ const noteReducer = (state = initialState, action) => {
 // action.payload = {id: 1, note: 'bye'}
 // newState = {1: {id: 1, note: 'bye'}}
 
-
-            newState = {
-                ...state,
-                [action.note.id]: {
-                    ...state[action.note.id],
-                    ...action.note
-                }
-            };
+            newState= { ...state }
+            const editId = action.payload.id
+            newState[editId] = action.payload
             return newState;
 
         case DELETE_NOTE:
