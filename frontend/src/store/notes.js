@@ -1,6 +1,7 @@
 import { csrfFetch } from './csrf'
 
 const GET_NOTES = 'notes/getNotes';
+const GET_NOTE = '/notes/getNote'
 const ADD_NOTE = 'notes/addNote';
 const EDIT_NOTE = '/notes/editNote';
 const DELETE_NOTE = 'notes/deleteNote';
@@ -13,6 +14,13 @@ const getNotes = (notes) => {
         payload: notes
     };
 };
+
+const getOneNote = (note) => {
+    return {
+        type: GET_NOTE,
+        payload: note
+    }
+}
 
 const addYourNote = (note) => {
     return {
@@ -42,6 +50,15 @@ export const getAllNotes = (id) => async(dispatch) => {
         const allNotes = await result.json();
         dispatch(getNotes(allNotes))
         return allNotes
+    }
+}
+
+export const getSingleNote = (id) => async(dispatch) => {
+    const result = await csrfFetch(`/api/note/one/${id}`);
+    if (result.ok) {
+        const oneNote = await result.json();
+        dispatch(getOneNote(oneNote))
+        return oneNote
     }
 }
 
@@ -101,6 +118,13 @@ const noteReducer = (state = initialState, action) => {
                     newState[note.id] = note;
                 });
             }
+            return newState;
+
+        case GET_NOTE:
+            newState = { ...state }
+            const note = action.payload
+            const id = action.payload.id
+            newState[id] = note
             return newState;
 
         case ADD_NOTE:

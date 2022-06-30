@@ -2,20 +2,36 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { editNote } from '../../store/notes';
+import { getSingleNote } from '../../store/notes'
 
 function EditForm() {
+
     const dispatch = useDispatch();
     const { id } = useParams();
     // console.log("**************", useParams())
     const userId = useSelector((state) => state?.session?.user?.id)
-    const note = useSelector((state) => state.note[id])
-    console.log(note)
-    const [title, setTitle] = useState(note.title);
-    const [content, setContent] = useState(note.content);
+    const note = useSelector((state) => state?.note[id])
+    const oneNote = useSelector((state) => state.note)
+    // console.log(note)
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
     const [errors, setErrors] = useState([]);
     const history = useHistory();
 
-
+    // if(note){
+    //     setTitle(note.title);
+    //     console.log(title)
+    //     setContent(note.content);
+    //     console.log(content)
+    //     console.log('&***** ^this is what you are looking for')
+    // }
+    //useeffect for dynamic checking of backend data
+    useEffect(()=> {
+        dispatch(getSingleNote(id))
+        .then(()=> setTitle(note.title))
+        .then(()=> setContent(note.content))
+    }, [dispatch])
+    //useeffect only for dynamic error checking
     useEffect(() => {
         const validationErrors = [];
         if (!title.length) validationErrors.push("Title is required");
@@ -23,6 +39,7 @@ function EditForm() {
         if (!content.length) validationErrors.push("Content is required");
         if (content.length > 500) validationErrors.push("Content must be 500 characters or less");
         setErrors(validationErrors);
+
     }, [title, content]);
 
     const handleSubmit = () => {
