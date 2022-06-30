@@ -68,7 +68,7 @@ export const addNote = (note) => async(dispatch) => {
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(note)
     })
-
+    
     if (result.ok) {
         const data = await result.json();
         dispatch(addYourNote(data))
