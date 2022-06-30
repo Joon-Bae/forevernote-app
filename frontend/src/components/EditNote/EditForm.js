@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { addNote } from '../../store/notes';
 
-function NewNoteForm() {
+function EditForm() {
     const dispatch = useDispatch();
     const { notebookId } = useParams();
     const userId = useSelector((state) => state?.session?.user?.id)
@@ -20,15 +20,14 @@ function NewNoteForm() {
         setErrors(validationErrors);
     }, [title, content]);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         const formValues = {
             userId,
             notebookId,
             title,
             content
         }
-        dispatch(addNote(formValues))
+        dispatch((formValues))
         console.log(formValues)
         history.push('/')
     }
@@ -38,7 +37,7 @@ function NewNoteForm() {
             className="note-form"
             onSubmit={handleSubmit}
         >
-            <h2>New Note</h2>
+            <h2>Edit Form</h2>
             <ul className="errors">
                 {
                     errors.map(error => (
@@ -67,7 +66,6 @@ function NewNoteForm() {
             <button
                 type="submit"
                 disabled={errors.length > 0}
-                onClick={(e) => handleSubmit(e)}
             >
                 Create Note
             </button>

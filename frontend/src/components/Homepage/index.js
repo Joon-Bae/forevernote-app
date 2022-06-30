@@ -4,7 +4,6 @@ import { getAllNotes } from "../../store/notes";
 import { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { LeftNavigation } from "../LeftNavigationBar/leftindex";
-import { RightNoteComponent } from "../RightNoteComponent/rightindex";
 
 export const Homepage = () => {
     const dispatch = useDispatch();
