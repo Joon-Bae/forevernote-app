@@ -11,11 +11,20 @@ import Note from "./components/Note";
 
 function App() {
   const dispatch = useDispatch();
-  const userId = useSelector(state=>state?.session?.user?.id)
+  // const state = useSelector(state=> state.session)
+  // console.log('state', state)
+  const userId = useSelector(state=>state.session.user?.id)
+  // console.log(userId, "this is userId")
   const [isLoaded, setIsLoaded] = useState(false);
+  const [setUser, setIsUser] = useState(false);
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => dispatch(getAllNotes(userId)).then(setIsLoaded(true)));
-  }, [dispatch, userId]);
+    dispatch(sessionActions.restoreUser())
+    .then(()=> setIsUser(true))
+    if(setUser){
+    dispatch(getAllNotes(userId))
+    }
+    (setIsLoaded(true));
+  }, [dispatch, setUser]);
 
   return (
     <>
