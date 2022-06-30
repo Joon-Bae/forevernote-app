@@ -13,13 +13,12 @@ export const Homepage = () => {
     // const userId = useSelector((state) => state.session.user.id)
     const userNotes = useSelector((state) => Object.values(state.note))
     const [isLoaded, setIsLoaded] = useState(false)
-
-    useEffect(() => {
-        if (userId) {
-            dispatch(getAllNotes(userId))
-            setIsLoaded(true)
-        }
-    }, [dispatch, isLoaded, userId])
+    // useEffect(() => {
+    //     // if (userId) {
+    //     //     dispatch(getAllNotes(userId))
+    //     //     setIsLoaded(true)
+    //     // }
+    // }, [dispatch, isLoaded, userId])
 
     const sendToNewForm = (e) => {
         e.preventDefault();
