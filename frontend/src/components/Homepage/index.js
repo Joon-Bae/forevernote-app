@@ -39,12 +39,10 @@ export const Homepage = () => {
 
     if (!userId) {
         return null;
-    // } else if (!isLoaded){
-    //         return <h1>Loading...</h1>
-    } else {
+    }
+    else if (isLoaded){
         return (
-            <>
-                
+            <div>
                 <div className='add-notebook'>
                     <button onClick={(e) => sendToNewNotebookForm(e)}>
                         Add a Notebook
@@ -62,7 +60,10 @@ export const Homepage = () => {
 
                     }): <h1>No Notebooks Currently</h1> }
                 </div>
-            </>
+            </div>
         )
+    }
+    else {
+        return null;
     }
 }

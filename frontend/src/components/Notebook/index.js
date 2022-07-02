@@ -13,6 +13,7 @@ const Notebook = () => {
     const userNotes = useSelector((state) => Object.values(state.note))
     console.log("****************", id)
     const sessionUser = useSelector((state) => state.session.user)
+    const notebookArray = useSelector((state) => Object.values(state.notebook))
     // const note = useSelector((state)=> Object.values(state.note))
     // use the params to get the id of the note
     // create a dispatch that grabs the findByPK of this particular note
@@ -39,7 +40,10 @@ const Notebook = () => {
         <>
         <div>
             <h1>Notebook Title</h1>
-            <button onClick={(e) => deleteUserNotebook(e)}>
+            <button
+            onClick={(e) => deleteUserNotebook(e)}
+            disabled={notebookArray.length <= 1 ? true : false}
+            >
                 Delete Notebook
             </button>
         </div>

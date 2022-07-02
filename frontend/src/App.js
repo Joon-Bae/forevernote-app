@@ -38,9 +38,6 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-        </Switch>
-      )}
-      <Switch>
         <Route exact path='/home'>
           <Homepage />
         </Route>
@@ -59,7 +56,10 @@ function App() {
       <Route exact path='/note/:id/edit'>
         <EditForm />
       </Route>
-      </Switch>
+        </Switch>
+      )}
+
+
     </>
   );
 }

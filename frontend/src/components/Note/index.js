@@ -8,6 +8,12 @@ const Note = () => {
     const dispatch = useDispatch();
     const history = useHistory()
     const { id } = useParams();
+    const note = useSelector(state => state?.note[`${id}`])
+    let notebookId;
+    if (note) {
+        notebookId = note.notebookId
+     }
+    console.log(notebookId, '********* this is notebook id')
 // const note = useSelector((state)=> Object.values(state.note))
 // use the params to get the id of the note
 // create a dispatch that grabs the findByPK of this particular note
@@ -30,7 +36,7 @@ const deleteUserNote = (e) => {
     // console.log("HELLO)))))))")
     dispatch(deleteNote(id))
     .then(()=>{
-        history.push('/home')
+        history.push(`/notebooks/${notebookId}`)
     })
 }
     return (
