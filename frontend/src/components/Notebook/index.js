@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory, useParams } from 'react-router-dom';
-import { deleteNotebookThunk } from '../../store/notebooks';
+import { deleteNotebookThunk, getNotebookNotesThunk } from '../../store/notebooks';
 import { getNotebooksThunk } from '../../store/notebooks';
+
 
 
 const Notebook = () => {
     const dispatch = useDispatch();
     const history = useHistory()
     const { id } = useParams();
-    console.log(id,"****************")
-    const userNotes = useSelector((state) => Object.values(state.note))
+    const userNotes = useSelector((state) => state.notebook.notes)
     console.log("****************", id)
     const sessionUser = useSelector((state) => state.session.user)
-    const notebookArray = useSelector((state) => Object.values(state.notebook))
+    const notebookArray = useSelector((state) => Object.values(state?.notebook))
+    console.log(notebookArray, 'is this notebookarray? ')
     // const note = useSelector((state)=> Object.values(state.note))
     // use the params to get the id of the note
     // create a dispatch that grabs the findByPK of this particular note
     // useSelector to grab the note and then plug that note in for lines 11 and 12
+    useEffect(()=> {
+        dispatch(getNotebookNotesThunk(id))
+    }, [dispatch])
 
     const sendToNewNoteForm = (e) => {
         e.preventDefault();
@@ -42,7 +46,7 @@ const Notebook = () => {
             <h1>Notebook Title</h1>
             <button
             onClick={(e) => deleteUserNotebook(e)}
-            disabled={notebookArray.length <= 1 ? true : false}
+            disabled={notebookArray.length <= 2 ? true : false}
             >
                 Delete Notebook
             </button>

@@ -21,6 +21,7 @@ router.get('/:notebookId/notes', asyncHandler(async(req,res) => {
         where: { notebookId: notebookId },
         order: [["updatedAt", "DESC"],]
     });
+    console.log(notes)
     return res.json(notes)
 }))
 

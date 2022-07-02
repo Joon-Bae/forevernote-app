@@ -11,6 +11,7 @@ import EditForm from "./components/EditNote/EditForm";
 import Note from "./components/Note";
 import NewNotebookForm from "./components/NewNotebookForm";
 import NoteBook from './components/Notebook'
+import SplashPage from "./components/Splashpage/Splashpage";
 
 function App() {
   const dispatch = useDispatch();
@@ -55,6 +56,9 @@ function App() {
       </Route>
       <Route exact path='/note/:id/edit'>
         <EditForm />
+      </Route>
+      <Route exact path='/'>
+        <SplashPage/>
       </Route>
         </Switch>
       )}

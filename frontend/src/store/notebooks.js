@@ -110,8 +110,8 @@ function notebooksReducer(state = initialState, action) {
         case GET_NOTEBOOKNOTES: {
             newState = { ...state }
             const notes = action.payload
-            const id = action.payload.id
-            newState[id] = notes
+            // const id = action.payload.id
+            newState['notes'] = notes
             return newState;
         }
         case GET_NOTEBOOK: {
