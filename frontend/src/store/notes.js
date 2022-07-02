@@ -78,13 +78,11 @@ export const addNote = (note) => async(dispatch) => {
 
 export const editNote = (formValues) => async(dispatch) => {
     const { id } = formValues
-    console.log(id, "*********************)_")
     const result = await csrfFetch(`/api/note/${id}/edit`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(formValues)
     })
-    console.log(result, "))))))))))))))))))))))))))")
     if (result.ok) {
         const note = await result.json();
         console.log(note, "---------------:)")

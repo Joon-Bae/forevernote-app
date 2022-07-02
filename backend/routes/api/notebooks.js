@@ -51,15 +51,9 @@ router.delete(
       const notebookId = req.params.notebookId;
 
       const notebook = await NoteBook.findByPk(notebookId);
-      const userId = notebook.userId;
+      console.log(notebook, "this is what we want to delete")
       await notebook.destroy();
-
-      const notebooks = await NoteBook.findAll({
-        where: {
-          userId: userId,
-        },
-      });
-      return res.json(notebooks);
+      return res.json(notebook);
     })
   );;
 

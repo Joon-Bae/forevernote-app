@@ -86,6 +86,7 @@ export const deleteNotebookThunk = (notebookId) => async(dispatch) => {
 
     if (res.ok) {
         const data = await res.json()
+        console.log(data, "****************)))))")
         dispatch(deleteNotebook(data));
     }
 }
@@ -129,6 +130,7 @@ function notebooksReducer(state = initialState, action) {
         case DELETE_NOTEBOOK: {
             newState = { ...state };
             const deletedId = action.payload.id
+            console.log(newState[`${deletedId}`])
             delete newState[`${deletedId}`];
             return newState;
         }

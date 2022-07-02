@@ -7,7 +7,7 @@ import { getSingleNote } from '../../store/notes'
 function EditForm() {
 
     const dispatch = useDispatch();
-    const { id } = useParams();
+    const { id, notebookId } = useParams();
     // console.log("**************", useParams())
     const userId = useSelector((state) => state?.session?.user?.id)
     const note = useSelector((state) => state?.note[id])
@@ -58,7 +58,7 @@ function EditForm() {
         //     e.preventDefault();
 
         dispatch(editNote(formValues))
-        history.push('/')
+        history.push(`/notebooks/${notebookId}`)
 
     }
 

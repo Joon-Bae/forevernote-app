@@ -44,26 +44,7 @@ export const Homepage = () => {
     } else {
         return (
             <>
-                <div className='add-note'>
-                    <button onClick={(e) => sendToNewNoteForm(e)}>
-                        Add a Note
-                    </button>
-                </div>
-                <div className='user-notes'>
-                    {userNotes?.length > 0 ? userNotes?.map((note) => {
-                        return (
-                            <NavLink key={`${note?.id}`} to={`/note/${note?.id}`}>
-                                <div>
-                                    {note?.title}
-                                </div>
-                                <div>
-                                    {note?.content}
-                                </div>
-                            </NavLink>
-                        )
-
-                    }): <h1>No Notes Currently</h1> }
-                </div>
+                
                 <div className='add-notebook'>
                     <button onClick={(e) => sendToNewNotebookForm(e)}>
                         Add a Notebook
