@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { deleteNotebookThunk } from '../../store/notebooks';
+import { getNotebooksThunk } from '../../store/notebooks';
+
 
 const Notebook = () => {
     const dispatch = useDispatch();
     const history = useHistory()
-    const { notebookId } = useParams();
+    const { id } = useParams();
+    console.log("****************", id)
+    const sessionUser = useSelector((state) => state.session.user)
 // const note = useSelector((state)=> Object.values(state.note))
 // use the params to get the id of the note
 // create a dispatch that grabs the findByPK of this particular note
@@ -17,16 +21,17 @@ const deleteUserNotebook = (e) => {
     e.preventDefault();
     e.stopPropagation();
     // console.log("HELLO)))))))")
-    dispatch(deleteNotebookThunk(notebookId))
+    dispatch(deleteNotebookThunk(id))
+    // .then(() => dispatch(getNotebooksThunk(sessionUser.id)))
     .then(()=>{
-        history.push('/')
+        history.push('/home')
     })
 }
     return (
         <div>
             <h1>Notebook Title</h1>
             <button onClick={(e) => deleteUserNotebook(e)}>
-                Delete Note
+                Delete Notebook
             </button>
         </div>
     )

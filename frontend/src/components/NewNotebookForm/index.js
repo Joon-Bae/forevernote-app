@@ -25,7 +25,7 @@ function NewNotebookForm() {
         }
         dispatch(createNotebookThunk(formValues))
         console.log(formValues)
-        history.push('/')
+        history.push('/home')
     }
 
     return (

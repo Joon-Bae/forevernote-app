@@ -6,8 +6,8 @@ const router = express.Router();
 //get all noteboooks for specific user
 router.get('/:userId', asyncHandler(async(req, res) => {
     const userId = req.params.userId;
-    const notebooks = await NoteBook.findall({
-        where: { userId: userId},
+    const notebooks = await NoteBook.findAll({
+        where: { userId: userId },
         order: [["updatedAt", "DESC"]],
     })
     return res.json(notebooks)
@@ -45,19 +45,23 @@ router.post('/new', asyncHandler(async(req, res) => {
 }))
 
 //DELETE A NOTEBOOK
-router.delete('/:notebookId', asyncHandler(async(req, res) => {
-    const notebookId = req.params.notebookId;
-    const notebook = await NoteBook.findByPk(notebookId);
-    const userId = notebook.userId;
+router.delete(
+    "/:notebookId",
+    asyncHandler(async (req, res) => {
+      const notebookId = req.params.notebookId;
 
-    await notebook.destroy();
+      const notebook = await NoteBook.findByPk(notebookId);
+      const userId = notebook.userId;
+      await notebook.destroy();
 
-    const notebooks = await NoteBook.findAll({
+      const notebooks = await NoteBook.findAll({
         where: {
-            userId: userId
+          userId: userId,
         },
-    });
-    return res.json(notebooks)
-}))
+      });
+      return res.json(notebooks);
+    })
+  );;
+
 
 module.exports = router;

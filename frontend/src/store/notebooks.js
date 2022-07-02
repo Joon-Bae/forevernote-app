@@ -85,16 +85,15 @@ export const deleteNotebookThunk = (notebookId) => async(dispatch) => {
     });
 
     if (res.ok) {
-        const data = res.json()
+        const data = await res.json()
         dispatch(deleteNotebook(data));
-        return data;
     }
 }
 
 //REDUCER
 const initialState = {};
 
-export default function notebooksReducer(state = initialState, action) {
+function notebooksReducer(state = initialState, action) {
     let newState = {}
     switch (action.type) {
         case GET_NOTEBOOKS: {
@@ -137,3 +136,5 @@ export default function notebooksReducer(state = initialState, action) {
             return state;
     }
 }
+
+export default notebooksReducer

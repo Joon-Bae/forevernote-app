@@ -2,12 +2,13 @@ import "./homepage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllNotes } from "../../store/notes";
 import { useEffect, useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory, useParams } from "react-router-dom";
+import { deleteNotebookThunk, getNotebooksThunk } from '../../store/notebooks'
 
 export const Homepage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-
+    const notebookId = useSelector(state => state?.session?.notebook?.id)
     const userId = useSelector(state=> state?.session?.user?.id)
     // const userId = useSelector((state) => state.session.user.id)
     const userNotes = useSelector((state) => Object.values(state.note))
@@ -17,9 +18,11 @@ export const Homepage = () => {
     useEffect(() => {
         if (userId) {
             dispatch(getAllNotes(userId))
+            dispatch(getNotebooksThunk(userId))
             setIsLoaded(true)
         }
     }, [dispatch, isLoaded, userId])
+
 
     const sendToNewNoteForm = (e) => {
         e.preventDefault();

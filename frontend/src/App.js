@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
@@ -14,6 +14,7 @@ import NoteBook from './components/Notebook'
 
 function App() {
   const dispatch = useDispatch();
+  const sessionUser = useSelector((state) => state.session.user);
   // const state = useSelector(state=> state.session)
   // console.log('state', state)
   const userId = useSelector(state=>state.session.user?.id)
@@ -40,7 +41,7 @@ function App() {
         </Switch>
       )}
       <Switch>
-        <Route exact path='/'>
+        <Route exact path='/home'>
           <Homepage />
         </Route>
         <Route exact path='/notebook/:notebookId/note/new'>

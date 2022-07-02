@@ -30,7 +30,7 @@ function NewNoteForm() {
         }
         dispatch(addNote(formValues))
         console.log(formValues)
-        history.push('/')
+        history.push('/home')
     }
 
     return (

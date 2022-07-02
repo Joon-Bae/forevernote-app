@@ -68,7 +68,7 @@ export const addNote = (note) => async(dispatch) => {
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(note)
     })
-    
+
     if (result.ok) {
         const data = await result.json();
         dispatch(addYourNote(data))
@@ -101,7 +101,6 @@ export const deleteNote = (id) => async(dispatch) => {
     // console.log(result)
     if (result.ok) {
         const noteId = await result.json();
-        console.log(noteId)
         dispatch(deleteYourNote(noteId))
     }
 }

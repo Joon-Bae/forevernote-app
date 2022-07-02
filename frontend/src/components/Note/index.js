@@ -30,7 +30,7 @@ const deleteUserNote = (e) => {
     // console.log("HELLO)))))))")
     dispatch(deleteNote(id))
     .then(()=>{
-        history.push('/')
+        history.push('/home')
     })
 }
     return (

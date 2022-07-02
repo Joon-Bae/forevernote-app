@@ -4,8 +4,10 @@ import { Modal } from '../../context/Modal';
 import LoginForm from './LoginForm';
 import * as sessionActions from '../../store/session'
 import './LoginForm.css'
+import { useHistory } from 'react-router-dom';
 
 function LoginFormModal() {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(false);
@@ -17,7 +19,8 @@ function LoginFormModal() {
     // setErrors([]);
     // setCredential('FakeUser1')
     // setPassword('password2')
-    return dispatch(sessionActions.login({ credential:'FakeUser1', password:'password2' }))
+    dispatch(sessionActions.login({ credential:'FakeUser1', password:'password2' }))
+    return history.push("/home")
   };
 
   return (
