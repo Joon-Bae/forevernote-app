@@ -11,10 +11,10 @@ const Notebook = () => {
     const history = useHistory()
     const { id } = useParams();
     const userNotes = useSelector((state) => state.notebook.notes)
-    console.log("****************", id)
+    // console.log("****************", id)
     const sessionUser = useSelector((state) => state.session.user)
     const notebookArray = useSelector((state) => Object.values(state?.notebook))
-    console.log(notebookArray, 'is this notebookarray? ')
+    // console.log(notebookArray, 'is this notebookarray? ')
     // const note = useSelector((state)=> Object.values(state.note))
     // use the params to get the id of the note
     // create a dispatch that grabs the findByPK of this particular note

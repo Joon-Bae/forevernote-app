@@ -13,7 +13,7 @@ const Note = () => {
     if (note) {
         notebookId = note.notebookId
      }
-    console.log(notebookId, '********* this is notebook id')
+    // console.log(notebookId, '********* this is notebook id')
 // const note = useSelector((state)=> Object.values(state.note))
 // use the params to get the id of the note
 // create a dispatch that grabs the findByPK of this particular note

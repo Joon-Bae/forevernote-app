@@ -58,7 +58,8 @@ function EditForm() {
         //     e.preventDefault();
 
         dispatch(editNote(formValues))
-        history.push(`/notebooks/${notebookId}`)
+        console.log(note.notebookId, "******** is this causing the bug?")
+        history.push(`/notebooks/${note.notebookId}`)
 
     }
 
