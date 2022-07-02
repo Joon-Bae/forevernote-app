@@ -9,6 +9,8 @@ import { getAllNotes } from "./store/notes";
 import  NewNoteForm  from './components/NewNoteForm'
 import EditForm from "./components/EditNote/EditForm";
 import Note from "./components/Note";
+import NewNotebookForm from "./components/NewNotebookForm";
+import NoteBook from './components/Notebook'
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +45,12 @@ function App() {
         </Route>
         <Route exact path='/notebook/:notebookId/note/new'>
           <NewNoteForm />
+      </Route>
+      <Route exact path='/notebooks/new'>
+        <NewNotebookForm />
+      </Route>
+      <Route exact path ='/notebooks/:id'>
+        <NoteBook/>
       </Route>
       <Route exact path='/note/:id'>
         <Note />
